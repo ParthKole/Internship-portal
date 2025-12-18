@@ -1,3 +1,4 @@
+// src/student/pages/StudentDashboard.jsx
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
@@ -471,9 +472,6 @@ const StudentDashboard = () => {
                         </div>
                       ))}
                     </div>
-                    
-                    {/* REMOVED: Priority Areas Section */}
-                    
                   </div>
                 </div>
               </div>

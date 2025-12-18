@@ -13,12 +13,12 @@ import {
 
 const Sidebar = ({ isCollapsed, toggleSidebar }) => {
   const menuItems = [
-    { label: 'Dashboard', path: '/', icon: <Home size={20} /> },
-    { label: 'My Profile', path: '/profile', icon: <User size={20} /> },
-    { label: 'Internships', path: '/internships', icon: <Briefcase size={20} /> },
-    { label: 'Applications', path: '/applications', icon: <BarChart3 size={20} /> },
-    { label: 'Messages', path: '/messages', icon: <MessageSquare size={20} /> },
-    { label: 'Settings', path: '/settings', icon: <Settings size={20} /> },
+    { label: 'Dashboard', path: '/student/dashboard', icon: <Home size={20} /> },
+    { label: 'My Profile', path: '/student/profile', icon: <User size={20} /> },
+    { label: 'Internships', path: '/student/internships', icon: <Briefcase size={20} /> },
+    { label: 'Applications', path: '/student/applications', icon: <BarChart3 size={20} /> },
+    { label: 'Messages', path: '/student/messages', icon: <MessageSquare size={20} /> },
+    { label: 'Settings', path: '/student/settings', icon: <Settings size={20} /> },
   ];
 
   return (
@@ -27,17 +27,17 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center justify-between">
           {!isCollapsed && (
-            <div className="flex items-center space-x-3">
+            <NavLink to="/student/dashboard" className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-[#4F46E5] rounded-lg flex items-center justify-center">
                 <Briefcase size={22} className="text-white" />
               </div>
               <h1 className="text-xl font-bold text-gray-900">InternPortal</h1>
-            </div>
+            </NavLink>
           )}
           {isCollapsed && (
-            <div className="w-10 h-10 bg-[#4F46E5] rounded-lg flex items-center justify-center mx-auto">
+            <NavLink to="/student/dashboard" className="w-10 h-10 bg-[#4F46E5] rounded-lg flex items-center justify-center mx-auto">
               <Briefcase size={22} className="text-white" />
-            </div>
+            </NavLink>
           )}
           <button
             onClick={toggleSidebar}
@@ -54,6 +54,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
           <NavLink
             key={index}
             to={item.path}
+            end={item.path === '/student/dashboard'}
             className={({ isActive }) =>
               `flex items-center ${isCollapsed ? 'justify-center p-3' : 'px-4 py-3 space-x-3'} rounded-lg transition-all duration-200 ${
                 isActive
@@ -75,13 +76,13 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
         <div className="flex items-center space-x-3">
           <div className="relative">
             <div className="w-10 h-10 bg-gradient-to-br from-[#4F46E5] to-[#7C3AED] rounded-full flex items-center justify-center text-white font-bold">
-              MS
+              RS
             </div>
             <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
           </div>
           {!isCollapsed && (
             <div className="flex-1">
-              <h3 className="font-semibold text-gray-900">Madhura S.</h3>
+              <h3 className="font-semibold text-gray-900">Rahul Sharma</h3>
               <p className="text-xs text-gray-500">Student</p>
             </div>
           )}

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
 import {
   Mail,
   Phone,
@@ -20,7 +21,7 @@ import {
 } from 'lucide-react';
 
 const StudentProfile = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   // Profile Data
   const studentData = {
@@ -174,20 +175,7 @@ const StudentProfile = () => {
       />
       
       <div className="flex-1 flex flex-col">
-        {/* Header */}
-        <div className="bg-white border-b border-gray-200 px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Student Profile</h1>
-              <p className="text-gray-600 mt-1">Manage and showcase your professional profile</p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="bg-blue-50 px-4 py-2 rounded-lg">
-                <p className="text-sm font-medium text-blue-700">Monday, December 15</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Header title = "My Profile" />
         
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto">
