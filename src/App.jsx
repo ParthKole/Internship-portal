@@ -16,19 +16,48 @@ import SettingsPage from './student/pages/SettingsPage';
 import MessagesPage from './student/pages/MessagesPage';
 
 // Admin Pages
-import AdminDashboard from './admin/pages/AdminDashboard';
 import AdminLogin from './admin/pages/AdminLogin';
-import AdminRegister from './admin/pages/AdminRegister';
+import AdminDashboard from './admin/pages/AdminDashboard';
+import CompanyRequests from './admin/pages/CompanyRequests';
+import ManageCompanies from './admin/pages/ManageCompanies';
+import ManageStudents from './admin/pages/ManageStudents';
+import ManageInternships from './admin/pages/ManageInternships';
+import PlacementDrives from './admin/pages/PlacementDrives';
+import Analytics from './admin/pages/Analytics';
+import Announcements from './admin/pages/Announcements';
+import Settings from './admin/pages/Settings';
 
 // Company Pages
 import CompanyLogin from './company/pages/CompanyLogin';
 import CompanyRegister from './company/pages/CompanyRegister';
 
-// Protected Route Component
-const ProtectedRoute = ({ children }) => {
+// Protected Route Components
+const StudentProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('studentToken');
-  if (!token) {
+  const userType = localStorage.getItem('userType');
+  
+  if (!token || userType !== 'student') {
     return <Navigate to="/student/login" />;
+  }
+  return children;
+};
+
+const AdminProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem('adminToken');
+  const userType = localStorage.getItem('userType');
+  
+  if (!token || userType !== 'admin') {
+    return <Navigate to="/admin/login" />;
+  }
+  return children;
+};
+
+const CompanyProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem('companyToken');
+  const userType = localStorage.getItem('userType');
+  
+  if (!token || userType !== 'company') {
+    return <Navigate to="/company/login" />;
   }
   return children;
 };
@@ -46,49 +75,110 @@ function App() {
         
         {/* Protected Student Routes */}
         <Route path="/student/dashboard" element={
-          <ProtectedRoute>
+          <StudentProtectedRoute>
             <StudentDashboard />
-          </ProtectedRoute>
+          </StudentProtectedRoute>
         } />
         
         <Route path="/student/internships" element={
-          <ProtectedRoute>
+          <StudentProtectedRoute>
             <InternshipsPage />
-          </ProtectedRoute>
+          </StudentProtectedRoute>
         } />
         
         <Route path="/student/applications" element={
-          <ProtectedRoute>
+          <StudentProtectedRoute>
             <ApplicationsPage />
-          </ProtectedRoute>
+          </StudentProtectedRoute>
         } />
         
         <Route path="/student/profile" element={
-          <ProtectedRoute>
+          <StudentProtectedRoute>
             <StudentProfile />
-          </ProtectedRoute>
+          </StudentProtectedRoute>
         } />
         
         <Route path="/student/settings" element={
-          <ProtectedRoute>
+          <StudentProtectedRoute>
             <SettingsPage />
-          </ProtectedRoute>
+          </StudentProtectedRoute>
         } />
         
         <Route path="/student/messages" element={
-          <ProtectedRoute>
+          <StudentProtectedRoute>
             <MessagesPage />
-          </ProtectedRoute>
+          </StudentProtectedRoute>
         } />
         
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/register" element={<AdminRegister />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        {/* Admin Register removed as per spec */}
+        
+        {/* Protected Admin Routes */}
+        <Route path="/admin/dashboard" element={
+          <AdminProtectedRoute>
+            <AdminDashboard />
+          </AdminProtectedRoute>
+        } />
+        
+        <Route path="/admin/company-requests" element={
+          <AdminProtectedRoute>
+            <CompanyRequests />
+          </AdminProtectedRoute>
+        } />
+        
+        <Route path="/admin/companies" element={
+          <AdminProtectedRoute>
+            <ManageCompanies />
+          </AdminProtectedRoute>
+        } />
+        
+        <Route path="/admin/students" element={
+          <AdminProtectedRoute>
+            <ManageStudents />
+          </AdminProtectedRoute>
+        } />
+        
+        <Route path="/admin/internships" element={
+          <AdminProtectedRoute>
+            <ManageInternships />
+          </AdminProtectedRoute>
+        } />
+        
+        <Route path="/admin/drives" element={
+          <AdminProtectedRoute>
+            <PlacementDrives />
+          </AdminProtectedRoute>
+        } />
+        
+        <Route path="/admin/analytics" element={
+          <AdminProtectedRoute>
+            <Analytics />
+          </AdminProtectedRoute>
+        } />
+        
+        <Route path="/admin/announcements" element={
+          <AdminProtectedRoute>
+            <Announcements />
+          </AdminProtectedRoute>
+        } />
+        
+        <Route path="/admin/settings" element={
+          <AdminProtectedRoute>
+            <Settings />
+          </AdminProtectedRoute>
+        } />
         
         {/* Company Routes */}
         <Route path="/company/login" element={<CompanyLogin />} />
         <Route path="/company/register" element={<CompanyRegister />} />
+        
+        {/* Protected Company Routes (add when you have company pages) */}
+        {/* <Route path="/company/dashboard" element={
+          <CompanyProtectedRoute>
+            <CompanyDashboard />
+          </CompanyProtectedRoute>
+        } /> */}
         
         {/* Fallback Route */}
         <Route path="*" element={<Navigate to="/" />} />
