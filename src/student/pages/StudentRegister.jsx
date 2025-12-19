@@ -1,4 +1,3 @@
-// src/student/pages/StudentRegister.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -6,10 +5,9 @@ import {
   Calendar, BookOpen, Code, Briefcase, Upload, Globe, Award,
   ChevronRight, Loader2, AlertCircle, CheckCircle, X, Users,
   Building, Globe2, FileText, FolderGit2, Cpu, Database, 
-  Cloud, Terminal, Palette, Smartphone, Server, Layers,
-  Zap, Target, Star, Heart, BookMarked, Trophy, Clock,
-  TrendingUp, BarChart, GitBranch, Shield, HeartHandshake,
-  Languages, PenTool, Mic, Video, Music, Camera, Gamepad2
+  Cloud, Terminal, Layers, Plus, Award as AwardIcon, 
+  Target, Star, Heart, PenTool, FileCheck, Trophy,
+  Linkedin, Github, ExternalLink, Zap
 } from 'lucide-react';
 
 const StudentRegister = () => {
@@ -20,7 +18,7 @@ const StudentRegister = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const totalSteps = 8; // Increased from 4 to 8
+  const totalSteps = 8;
 
   const [formData, setFormData] = useState({
     // Step 1: Personal Information
@@ -37,7 +35,7 @@ const StudentRegister = () => {
     
     // Step 2: Academic Background
     university: '',
-    universityType: 'public', // public/private/deemed
+    universityType: 'public',
     collegeName: '',
     degree: '',
     specialization: '',
@@ -47,8 +45,6 @@ const StudentRegister = () => {
     cgpa: '',
     percentage: '',
     academicAchievements: '',
-    thesisTopic: '',
-    researchPapers: '',
     
     // Step 3: Education History
     highSchool: {
@@ -65,121 +61,50 @@ const StudentRegister = () => {
       percentage: '',
       stream: ''
     },
-    otherQualifications: [],
     
     // Step 4: Technical Skills
     programmingLanguages: ['JavaScript', 'Python'],
     frameworks: ['React', 'Node.js'],
     databases: ['MongoDB', 'MySQL'],
-    cloudPlatforms: ['AWS', 'Google Cloud'],
+    cloudPlatforms: ['AWS'],
     devOpsTools: ['Docker', 'Git'],
-    ides: ['VS Code', 'IntelliJ'],
     
-    // Step 5: Projects & Experience
-    projects: [
-      {
-        title: 'E-Commerce Platform',
-        description: 'Full-stack e-commerce website with payment gateway',
-        technologies: ['React', 'Node.js', 'MongoDB'],
-        role: 'Full Stack Developer',
-        duration: '3 months',
-        teamSize: 3,
-        githubLink: '',
-        liveLink: '',
-        impact: 'Increased user engagement by 40%'
-      }
-    ],
-    internships: [
-      {
-        company: 'TechCorp Solutions',
-        role: 'Software Developer Intern',
-        duration: '2 months',
-        description: 'Worked on frontend development using React',
-        skillsGained: ['React', 'Redux', 'API Integration'],
-        certificate: true
-      }
-    ],
-    workExperience: [],
-    freelanceWork: [],
+    // Step 5: Projects
+    projects: [{
+      title: '',
+      description: '',
+      technologies: [],
+      role: '',
+      duration: '',
+      githubLink: '',
+      liveLink: ''
+    }],
     
-    // Step 6: Certifications & Achievements
-    certifications: [
-      {
-        title: 'AWS Certified Cloud Practitioner',
-        issuer: 'Amazon Web Services',
-        date: '2024',
-        credentialId: '',
-        validity: '2026'
-      }
-    ],
-    achievements: [
-      {
-        title: 'Hackathon Winner',
-        issuer: 'TechFest 2024',
-        date: '2024',
-        description: 'Won first prize in national level hackathon'
-      }
-    ],
-    competitions: [],
-    publications: [],
-    patents: [],
+    // Step 6: Certifications
+    certifications: [{
+      title: '',
+      issuer: '',
+      date: '',
+      credentialId: ''
+    }],
     
-    // Step 7: Soft Skills & Interests
-    softSkills: [
-      'Problem Solving', 'Team Leadership', 'Communication',
-      'Time Management', 'Critical Thinking', 'Adaptability'
-    ],
-    languages: [
-      { language: 'English', proficiency: 'Fluent' },
-      { language: 'Hindi', proficiency: 'Native' }
-    ],
-    hobbies: ['Reading Tech Blogs', 'Open Source Contribution', 'Gaming'],
-    volunteerWork: [],
-    extracurricular: [],
-    careerGoals: 'To become a Senior Software Engineer in 5 years',
-    preferredWorkEnvironment: 'Remote/Hybrid',
-    willingToRelocate: true,
-    noticePeriod: 'Immediate',
+    // Step 7: Preferences
+    preferredJobTypes: ['Internship'],
+    preferredLocations: ['Bangalore'],
+    preferredIndustries: ['Technology'],
+    expectedSalary: '',
+    careerGoals: '',
     
-    // Step 8: Profile & Account
-    profilePhoto: null,
-    resume: null,
-    portfolioLink: '',
-    linkedin: '',
-    github: '',
-    leetcode: '',
-    hackerrank: '',
-    codeforces: '',
-    blog: '',
-    youtube: '',
-    twitter: '',
-    instagram: '',
-    
-    // Account
+    // Step 8: Account
     password: '',
     confirmPassword: '',
-    receiveNotifications: true,
+    profilePhoto: null,
+    resume: null,
+    linkedin: '',
+    github: '',
     termsAccepted: false,
     privacyAccepted: false,
-    
-    // Preferences
-    preferredJobTypes: ['Internship', 'Full-time'],
-    preferredLocations: ['Bangalore', 'Remote'],
-    preferredIndustries: ['Technology', 'Fintech'],
-    expectedSalary: '',
-    availabilityDate: '',
-    willingToTravel: true,
-    
-    // Additional
-    references: [],
-    disability: '',
-    accommodationNeeds: '',
-    emergencyContact: {
-      name: '',
-      relationship: '',
-      phone: '',
-      email: ''
-    }
+    receiveNotifications: true
   });
 
   const handleChange = (e) => {
@@ -191,7 +116,6 @@ const StudentRegister = () => {
         [name]: files[0]
       }));
     } else if (name.includes('.')) {
-      // Handle nested objects
       const [parent, child] = name.split('.');
       setFormData(prev => ({
         ...prev,
@@ -207,10 +131,42 @@ const StudentRegister = () => {
       }));
     }
     
-    // Clear error for this field
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
+  };
+
+  const handleNestedChange = (parent, field, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [parent]: {
+        ...prev[parent],
+        [field]: value
+      }
+    }));
+  };
+
+  const handleArrayChange = (arrayName, index, field, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [arrayName]: prev[arrayName].map((item, i) => 
+        i === index ? { ...item, [field]: value } : item
+      )
+    }));
+  };
+
+  const addArrayItem = (arrayName, template) => {
+    setFormData(prev => ({
+      ...prev,
+      [arrayName]: [...prev[arrayName], { ...template }]
+    }));
+  };
+
+  const removeArrayItem = (arrayName, index) => {
+    setFormData(prev => ({
+      ...prev,
+      [arrayName]: prev[arrayName].filter((_, i) => i !== index)
+    }));
   };
 
   const validateStep = (stepNum) => {
@@ -223,22 +179,17 @@ const StudentRegister = () => {
       else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
       if (!formData.phone.trim()) newErrors.phone = 'Phone is required';
       if (!formData.dateOfBirth) newErrors.dateOfBirth = 'Date of birth is required';
-      if (!formData.nationality) newErrors.nationality = 'Nationality is required';
     }
 
     if (stepNum === 2) {
       if (!formData.university.trim()) newErrors.university = 'University is required';
       if (!formData.degree.trim()) newErrors.degree = 'Degree is required';
       if (!formData.graduationYear) newErrors.graduationYear = 'Graduation year is required';
-      if (!formData.cgpa) newErrors.cgpa = 'CGPA is required';
     }
 
     if (stepNum === 8) {
       if (!formData.password) newErrors.password = 'Password is required';
       else if (formData.password.length < 8) newErrors.password = 'Password must be at least 8 characters';
-      else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
-        newErrors.password = 'Password must contain uppercase, lowercase and number';
-      }
       if (!formData.confirmPassword) newErrors.confirmPassword = 'Please confirm password';
       else if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
       if (!formData.termsAccepted) newErrors.termsAccepted = 'You must accept terms and conditions';
@@ -270,17 +221,13 @@ const StudentRegister = () => {
     if (validateStep(step)) {
       setLoading(true);
       
-      // Simulate API call
       setTimeout(() => {
-        // Store complete student data
         const studentProfile = {
           ...formData,
           id: Date.now(),
           registeredAt: new Date().toISOString(),
-          profileComplete: 95,
-          lastUpdated: new Date().toISOString(),
-          verificationStatus: 'pending',
-          profileScore: 87
+          profileComplete: 85,
+          verificationStatus: 'pending'
         };
         
         localStorage.setItem('studentProfile', JSON.stringify(studentProfile));
@@ -321,9 +268,9 @@ const StudentRegister = () => {
           step === 2 ? 'Academic Details' :
           step === 3 ? 'Education History' :
           step === 4 ? 'Technical Skills' :
-          step === 5 ? 'Projects & Experience' :
+          step === 5 ? 'Projects' :
           step === 6 ? 'Certifications' :
-          step === 7 ? 'Soft Skills' :
+          step === 7 ? 'Preferences' :
           'Account Setup'
         }
       </div>
@@ -335,9 +282,9 @@ const StudentRegister = () => {
     2: 'Academic Background',
     3: 'Education History',
     4: 'Technical Skills',
-    5: 'Projects & Experience',
-    6: 'Certifications & Achievements',
-    7: 'Soft Skills & Interests',
+    5: 'Projects',
+    6: 'Certifications',
+    7: 'Career Preferences',
     8: 'Account Setup'
   };
 
@@ -346,9 +293,9 @@ const StudentRegister = () => {
     2: 'Your academic qualifications',
     3: 'Complete education history',
     4: 'Your technical expertise',
-    5: 'Projects and work experience',
-    6: 'Certificates and achievements',
-    7: 'Soft skills and interests',
+    5: 'Showcase your projects',
+    6: 'Your certifications and achievements',
+    7: 'Your career goals and preferences',
     8: 'Create your account'
   };
 
@@ -356,31 +303,31 @@ const StudentRegister = () => {
     {
       title: 'Programming Languages',
       icon: <Code className="text-blue-500" />,
-      skills: ['JavaScript', 'Python', 'Java', 'C++', 'C#', 'Go', 'Rust', 'Swift', 'Kotlin', 'PHP', 'Ruby', 'TypeScript'],
+      skills: ['JavaScript', 'Python', 'Java', 'C++', 'C#', 'Go', 'TypeScript'],
       field: 'programmingLanguages'
     },
     {
       title: 'Frameworks & Libraries',
       icon: <Layers className="text-purple-500" />,
-      skills: ['React', 'Angular', 'Vue.js', 'Node.js', 'Express', 'Django', 'Spring', 'Flask', '.NET', 'React Native', 'Flutter'],
+      skills: ['React', 'Angular', 'Vue.js', 'Node.js', 'Express', 'Django'],
       field: 'frameworks'
     },
     {
       title: 'Databases',
       icon: <Database className="text-green-500" />,
-      skills: ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Oracle', 'SQLite', 'Cassandra', 'Elasticsearch', 'DynamoDB'],
+      skills: ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'SQLite'],
       field: 'databases'
     },
     {
       title: 'Cloud Platforms',
       icon: <Cloud className="text-orange-500" />,
-      skills: ['AWS', 'Azure', 'Google Cloud', 'IBM Cloud', 'Oracle Cloud', 'Digital Ocean', 'Heroku', 'Firebase'],
+      skills: ['AWS', 'Azure', 'Google Cloud', 'Firebase'],
       field: 'cloudPlatforms'
     },
     {
       title: 'DevOps Tools',
       icon: <Terminal className="text-red-500" />,
-      skills: ['Docker', 'Kubernetes', 'Jenkins', 'Git', 'Ansible', 'Terraform', 'Prometheus', 'Grafana', 'CI/CD'],
+      skills: ['Docker', 'Git', 'Jenkins', 'Kubernetes'],
       field: 'devOpsTools'
     }
   ];
@@ -573,62 +520,20 @@ const StudentRegister = () => {
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                         <option value="other">Other</option>
-                        <option value="prefer-not-to-say">Prefer not to say</option>
                       </select>
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Nationality *
+                        Nationality
                       </label>
                       <input
                         type="text"
                         name="nationality"
                         value={formData.nationality}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all ${
-                          errors.nationality ? 'border-red-300' : 'border-gray-300'
-                        }`}
-                        placeholder="Indian"
-                      />
-                      {errors.nationality && (
-                        <p className="mt-1 text-sm text-red-600 flex items-center">
-                          <AlertCircle size={14} className="mr-1" />
-                          {errors.nationality}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Current City
-                      </label>
-                      <div className="relative">
-                        <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                        <input
-                          type="text"
-                          name="currentCity"
-                          value={formData.currentCity}
-                          onChange={handleChange}
-                          className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all"
-                          placeholder="Bangalore, Karnataka"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Permanent Address
-                      </label>
-                      <textarea
-                        name="permanentAddress"
-                        value={formData.permanentAddress}
-                        onChange={handleChange}
-                        rows={2}
                         className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all"
-                        placeholder="Full permanent address..."
+                        placeholder="Indian"
                       />
                     </div>
                   </div>
@@ -666,22 +571,6 @@ const StudentRegister = () => {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        College Name
-                      </label>
-                      <input
-                        type="text"
-                        name="collegeName"
-                        value={formData.collegeName}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all"
-                        placeholder="Department of Computer Science"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Degree Level *
                       </label>
                       <select
@@ -696,13 +585,8 @@ const StudentRegister = () => {
                         <option value="B.Tech">Bachelor of Technology</option>
                         <option value="B.E.">Bachelor of Engineering</option>
                         <option value="B.Sc.">Bachelor of Science</option>
-                        <option value="B.A.">Bachelor of Arts</option>
                         <option value="M.Tech">Master of Technology</option>
                         <option value="M.Sc.">Master of Science</option>
-                        <option value="MBA">Master of Business Administration</option>
-                        <option value="Ph.D">Doctor of Philosophy</option>
-                        <option value="Diploma">Diploma</option>
-                        <option value="Integrated">Integrated Degree</option>
                       </select>
                       {errors.degree && (
                         <p className="mt-1 text-sm text-red-600 flex items-center">
@@ -711,10 +595,12 @@ const StudentRegister = () => {
                         </p>
                       )}
                     </div>
+                  </div>
 
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Specialization/Major *
+                        Specialization/Major
                       </label>
                       <input
                         type="text"
@@ -723,44 +609,6 @@ const StudentRegister = () => {
                         onChange={handleChange}
                         className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all"
                         placeholder="Computer Science & Engineering"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Current Year
-                      </label>
-                      <select
-                        name="currentYear"
-                        value={formData.currentYear}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all"
-                      >
-                        <option value="1st Year">1st Year</option>
-                        <option value="2nd Year">2nd Year</option>
-                        <option value="3rd Year">3rd Year</option>
-                        <option value="4th Year">4th Year</option>
-                        <option value="5th Year">5th Year</option>
-                        <option value="Final Year">Final Year</option>
-                        <option value="Graduate">Graduate</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Current Semester
-                      </label>
-                      <input
-                        type="number"
-                        name="currentSemester"
-                        value={formData.currentSemester}
-                        onChange={handleChange}
-                        min="1"
-                        max="10"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all"
-                        placeholder="6"
                       />
                     </div>
 
@@ -790,42 +638,54 @@ const StudentRegister = () => {
                         </p>
                       )}
                     </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Current Year
+                      </label>
+                      <select
+                        name="currentYear"
+                        value={formData.currentYear}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all"
+                      >
+                        <option value="1st Year">1st Year</option>
+                        <option value="2nd Year">2nd Year</option>
+                        <option value="3rd Year">3rd Year</option>
+                        <option value="4th Year">4th Year</option>
+                        <option value="Final Year">Final Year</option>
+                      </select>
+                    </div>
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        CGPA/Percentage *
+                        CGPA/Percentage
                       </label>
                       <input
                         type="text"
                         name="cgpa"
                         value={formData.cgpa}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all ${
-                          errors.cgpa ? 'border-red-300' : 'border-gray-300'
-                        }`}
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all"
                         placeholder="8.5/10 or 85%"
                       />
-                      {errors.cgpa && (
-                        <p className="mt-1 text-sm text-red-600 flex items-center">
-                          <AlertCircle size={14} className="mr-1" />
-                          {errors.cgpa}
-                        </p>
-                      )}
                     </div>
-                  </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Academic Achievements
-                    </label>
-                    <textarea
-                      name="academicAchievements"
-                      value={formData.academicAchievements}
-                      onChange={handleChange}
-                      rows={3}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all"
-                      placeholder="Dean's List, Scholarships, Awards, Rank, etc..."
-                    />
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        College Name
+                      </label>
+                      <input
+                        type="text"
+                        name="collegeName"
+                        value={formData.collegeName}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all"
+                        placeholder="Department of Computer Science"
+                      />
+                    </div>
                   </div>
                 </div>
               )}
@@ -833,141 +693,121 @@ const StudentRegister = () => {
               {/* Step 3: Education History */}
               {step === 3 && (
                 <div className="space-y-8">
-                  <div className="bg-blue-50 p-4 rounded-xl">
-                    <h3 className="font-semibold text-blue-800 mb-2 flex items-center">
+                  <div className="bg-blue-50 p-6 rounded-xl">
+                    <h3 className="font-semibold text-blue-800 mb-4 flex items-center">
                       <BookOpen className="mr-2" size={18} />
                       10th Standard (High School)
                     </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
                           School Name
                         </label>
                         <input
                           type="text"
-                          name="highSchool.name"
                           value={formData.highSchool.name}
-                          onChange={handleChange}
-                          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg"
+                          onChange={(e) => handleNestedChange('highSchool', 'name', e.target.value)}
+                          className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                           placeholder="Delhi Public School"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
                           Board
                         </label>
                         <input
                           type="text"
-                          name="highSchool.board"
                           value={formData.highSchool.board}
-                          onChange={handleChange}
-                          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg"
+                          onChange={(e) => handleNestedChange('highSchool', 'board', e.target.value)}
+                          className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                           placeholder="CBSE/ICSE/State Board"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
                           Year of Passing
                         </label>
                         <input
                           type="number"
-                          name="highSchool.year"
                           value={formData.highSchool.year}
-                          onChange={handleChange}
-                          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg"
+                          onChange={(e) => handleNestedChange('highSchool', 'year', e.target.value)}
+                          className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                           placeholder="2019"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
                           Percentage/CGPA
                         </label>
                         <input
                           type="text"
-                          name="highSchool.percentage"
                           value={formData.highSchool.percentage}
-                          onChange={handleChange}
-                          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg"
+                          onChange={(e) => handleNestedChange('highSchool', 'percentage', e.target.value)}
+                          className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                           placeholder="92%"
                         />
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-green-50 p-4 rounded-xl">
-                    <h3 className="font-semibold text-green-800 mb-2 flex items-center">
+                  <div className="bg-green-50 p-6 rounded-xl">
+                    <h3 className="font-semibold text-green-800 mb-4 flex items-center">
                       <BookOpen className="mr-2" size={18} />
                       12th Standard (Intermediate)
                     </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
                           School/College Name
                         </label>
                         <input
                           type="text"
-                          name="intermediate.name"
                           value={formData.intermediate.name}
-                          onChange={handleChange}
-                          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg"
+                          onChange={(e) => handleNestedChange('intermediate', 'name', e.target.value)}
+                          className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                           placeholder="Delhi Public School"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
                           Board
                         </label>
                         <input
                           type="text"
-                          name="intermediate.board"
                           value={formData.intermediate.board}
-                          onChange={handleChange}
-                          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg"
+                          onChange={(e) => handleNestedChange('intermediate', 'board', e.target.value)}
+                          className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                           placeholder="CBSE"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
                           Year of Passing
                         </label>
                         <input
                           type="number"
-                          name="intermediate.year"
                           value={formData.intermediate.year}
-                          onChange={handleChange}
-                          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg"
+                          onChange={(e) => handleNestedChange('intermediate', 'year', e.target.value)}
+                          className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                           placeholder="2021"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
                           Stream
                         </label>
                         <select
-                          name="intermediate.stream"
                           value={formData.intermediate.stream}
-                          onChange={handleChange}
-                          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg"
+                          onChange={(e) => handleNestedChange('intermediate', 'stream', e.target.value)}
+                          className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                         >
                           <option value="">Select Stream</option>
                           <option value="Science">Science (PCM/PCB)</option>
                           <option value="Commerce">Commerce</option>
                           <option value="Arts">Arts/Humanities</option>
-                          <option value="Diploma">Diploma</option>
                         </select>
                       </div>
                     </div>
-                  </div>
-
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-4">Other Qualifications</h3>
-                    <button
-                      type="button"
-                      className="w-full py-3 border-2 border-dashed border-gray-300 rounded-xl text-gray-600 hover:text-gray-900 hover:border-gray-400 transition-colors flex items-center justify-center"
-                    >
-                      <Plus className="mr-2" size={18} />
-                      Add Additional Qualification
-                    </button>
                   </div>
                 </div>
               )}
@@ -983,11 +823,10 @@ const StudentRegister = () => {
                         </div>
                         <div>
                           <h3 className="font-semibold text-gray-900">{category.title}</h3>
-                          <p className="text-sm text-gray-600">Select from popular skills or add custom</p>
+                          <p className="text-sm text-gray-600">Select from popular skills</p>
                         </div>
                       </div>
                       
-                      {/* Selected Skills */}
                       <div className="flex flex-wrap gap-2 mb-4">
                         {formData[category.field].map((skill, idx) => (
                           <span
@@ -1006,7 +845,6 @@ const StudentRegister = () => {
                         ))}
                       </div>
                       
-                      {/* Popular Skills */}
                       <div className="flex flex-wrap gap-2">
                         {category.skills.map((skill, idx) => (
                           <button
@@ -1024,103 +862,303 @@ const StudentRegister = () => {
                           </button>
                         ))}
                       </div>
-                      
-                      {/* Custom Skill Input */}
-                      <div className="mt-4 flex gap-2">
-                        <input
-                          type="text"
-                          placeholder={`Add custom ${category.title.toLowerCase()}...`}
-                          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                          onKeyPress={(e) => {
-                            if (e.key === 'Enter' && e.target.value.trim()) {
-                              addSkill(category.field, e.target.value.trim());
-                              e.target.value = '';
-                            }
-                          }}
-                        />
-                        <button
-                          type="button"
-                          className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900"
-                          onClick={(e) => {
-                            const input = e.target.previousElementSibling;
-                            if (input.value.trim()) {
-                              addSkill(category.field, input.value.trim());
-                              input.value = '';
-                            }
-                          }}
-                        >
-                          Add
-                        </button>
-                      </div>
                     </div>
                   ))}
                 </div>
               )}
 
-              {/* Step 8: Account Setup (Last Step) */}
+              {/* Step 5: Projects */}
+              {step === 5 && (
+                <div className="space-y-6">
+                  {formData.projects.map((project, index) => (
+                    <div key={index} className="border border-gray-200 rounded-xl p-6">
+                      <div className="flex justify-between items-center mb-4">
+                        <h3 className="font-semibold text-gray-900">Project {index + 1}</h3>
+                        {index > 0 && (
+                          <button
+                            type="button"
+                            onClick={() => removeArrayItem('projects', index)}
+                            className="text-red-600 hover:text-red-800 text-sm"
+                          >
+                            Remove
+                          </button>
+                        )}
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Project Title
+                          </label>
+                          <input
+                            type="text"
+                            value={project.title}
+                            onChange={(e) => handleArrayChange('projects', index, 'title', e.target.value)}
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl"
+                            placeholder="E-Commerce Platform"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Your Role
+                          </label>
+                          <input
+                            type="text"
+                            value={project.role}
+                            onChange={(e) => handleArrayChange('projects', index, 'role', e.target.value)}
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl"
+                            placeholder="Full Stack Developer"
+                          />
+                        </div>
+                        <div className="md:col-span-2">
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Description
+                          </label>
+                          <textarea
+                            value={project.description}
+                            onChange={(e) => handleArrayChange('projects', index, 'description', e.target.value)}
+                            rows={3}
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl"
+                            placeholder="Describe the project and your contributions..."
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Duration
+                          </label>
+                          <input
+                            type="text"
+                            value={project.duration}
+                            onChange={(e) => handleArrayChange('projects', index, 'duration', e.target.value)}
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl"
+                            placeholder="3 months"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            GitHub Link
+                          </label>
+                          <input
+                            type="url"
+                            value={project.githubLink}
+                            onChange={(e) => handleArrayChange('projects', index, 'githubLink', e.target.value)}
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl"
+                            placeholder="https://github.com/username/project"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  
+                  <button
+                    type="button"
+                    onClick={() => addArrayItem('projects', {
+                      title: '',
+                      description: '',
+                      technologies: [],
+                      role: '',
+                      duration: '',
+                      githubLink: '',
+                      liveLink: ''
+                    })}
+                    className="w-full py-4 border-2 border-dashed border-gray-300 rounded-xl text-gray-600 hover:text-gray-900 hover:border-gray-400 transition-colors flex items-center justify-center"
+                  >
+                    <Plus className="mr-2" size={18} />
+                    Add Another Project
+                  </button>
+                </div>
+              )}
+
+              {/* Step 6: Certifications */}
+              {step === 6 && (
+                <div className="space-y-6">
+                  {formData.certifications.map((cert, index) => (
+                    <div key={index} className="border border-gray-200 rounded-xl p-6">
+                      <div className="flex justify-between items-center mb-4">
+                        <h3 className="font-semibold text-gray-900">Certification {index + 1}</h3>
+                        {index > 0 && (
+                          <button
+                            type="button"
+                            onClick={() => removeArrayItem('certifications', index)}
+                            className="text-red-600 hover:text-red-800 text-sm"
+                          >
+                            Remove
+                          </button>
+                        )}
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Certification Title
+                          </label>
+                          <input
+                            type="text"
+                            value={cert.title}
+                            onChange={(e) => handleArrayChange('certifications', index, 'title', e.target.value)}
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl"
+                            placeholder="AWS Certified Cloud Practitioner"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Issuing Organization
+                          </label>
+                          <input
+                            type="text"
+                            value={cert.issuer}
+                            onChange={(e) => handleArrayChange('certifications', index, 'issuer', e.target.value)}
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl"
+                            placeholder="Amazon Web Services"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Issue Date
+                          </label>
+                          <input
+                            type="month"
+                            value={cert.date}
+                            onChange={(e) => handleArrayChange('certifications', index, 'date', e.target.value)}
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Credential ID
+                          </label>
+                          <input
+                            type="text"
+                            value={cert.credentialId}
+                            onChange={(e) => handleArrayChange('certifications', index, 'credentialId', e.target.value)}
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl"
+                            placeholder="ABC123XYZ"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  
+                  <button
+                    type="button"
+                    onClick={() => addArrayItem('certifications', {
+                      title: '',
+                      issuer: '',
+                      date: '',
+                      credentialId: ''
+                    })}
+                    className="w-full py-4 border-2 border-dashed border-gray-300 rounded-xl text-gray-600 hover:text-gray-900 hover:border-gray-400 transition-colors flex items-center justify-center"
+                  >
+                    <Plus className="mr-2" size={18} />
+                    Add Another Certification
+                  </button>
+                </div>
+              )}
+
+              {/* Step 7: Career Preferences */}
+              {step === 7 && (
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-4">
+                      Preferred Job Types
+                    </label>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                      {['Internship', 'Full-time', 'Part-time', 'Contract', 'Freelance', 'Remote', 'On-site', 'Hybrid'].map((type) => (
+                        <div key={type} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={type}
+                            checked={formData.preferredJobTypes.includes(type)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setFormData(prev => ({
+                                  ...prev,
+                                  preferredJobTypes: [...prev.preferredJobTypes, type]
+                                }));
+                              } else {
+                                setFormData(prev => ({
+                                  ...prev,
+                                  preferredJobTypes: prev.preferredJobTypes.filter(t => t !== type)
+                                }));
+                              }
+                            }}
+                            className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                          />
+                          <label htmlFor={type} className="ml-2 text-sm text-gray-700">
+                            {type}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Preferred Locations
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {['Bangalore', 'Hyderabad', 'Pune', 'Mumbai', 'Delhi', 'Chennai', 'Remote', 'Any'].map((location) => (
+                        <button
+                          key={location}
+                          type="button"
+                          onClick={() => {
+                            if (formData.preferredLocations.includes(location)) {
+                              setFormData(prev => ({
+                                ...prev,
+                                preferredLocations: prev.preferredLocations.filter(l => l !== location)
+                              }));
+                            } else {
+                              setFormData(prev => ({
+                                ...prev,
+                                preferredLocations: [...prev.preferredLocations, location]
+                              }));
+                            }
+                          }}
+                          className={`px-4 py-2 rounded-lg transition-colors ${
+                            formData.preferredLocations.includes(location)
+                              ? 'bg-blue-600 text-white'
+                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          }`}
+                        >
+                          {location}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Expected Salary (₹ per annum)
+                    </label>
+                    <input
+                      type="text"
+                      name="expectedSalary"
+                      value={formData.expectedSalary}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl"
+                      placeholder="e.g., 600000"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Career Goals
+                    </label>
+                    <textarea
+                      name="careerGoals"
+                      value={formData.careerGoals}
+                      onChange={handleChange}
+                      rows={4}
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl"
+                      placeholder="Describe your short-term and long-term career goals..."
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Step 8: Account Setup */}
               {step === 8 && (
                 <div className="space-y-6">
-                  {/* Profile Photo */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Profile Photo
-                    </label>
-                    <div className="flex items-center space-x-6">
-                      <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                        {formData.firstName.charAt(0)}{formData.lastName.charAt(0)}
-                      </div>
-                      <div className="flex-1">
-                        <input
-                          type="file"
-                          name="profilePhoto"
-                          onChange={handleChange}
-                          accept="image/*"
-                          className="hidden"
-                          id="profile-photo"
-                        />
-                        <label
-                          htmlFor="profile-photo"
-                          className="inline-block px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 cursor-pointer"
-                        >
-                          Upload Photo
-                        </label>
-                        <p className="text-xs text-gray-500 mt-2">
-                          JPG, PNG up to 2MB. Professional headshot recommended.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Resume Upload */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Upload Resume/CV *
-                    </label>
-                    <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-blue-400 transition-colors">
-                      <FileText className="mx-auto text-gray-400 mb-3" size={32} />
-                      <p className="text-sm text-gray-600 mb-2">
-                        Drag & drop your resume or
-                      </p>
-                      <input
-                        type="file"
-                        name="resume"
-                        onChange={handleChange}
-                        accept=".pdf,.doc,.docx"
-                        className="hidden"
-                        id="resume-upload"
-                      />
-                      <label
-                        htmlFor="resume-upload"
-                        className="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 cursor-pointer"
-                      >
-                        Browse Files
-                      </label>
-                      <p className="text-xs text-gray-500 mt-3">
-                        PDF, DOC, DOCX up to 5MB. Include all your details.
-                      </p>
-                    </div>
-                  </div>
-
                   {/* Social Profiles */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -1128,13 +1166,13 @@ const StudentRegister = () => {
                         LinkedIn Profile
                       </label>
                       <div className="relative">
-                        <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                        <Linkedin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                         <input
                           type="url"
                           name="linkedin"
                           value={formData.linkedin}
                           onChange={handleChange}
-                          className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all"
+                          className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-xl"
                           placeholder="https://linkedin.com/in/username"
                         />
                       </div>
@@ -1145,13 +1183,13 @@ const StudentRegister = () => {
                         GitHub Profile
                       </label>
                       <div className="relative">
-                        <GitBranch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                        <Github className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                         <input
                           type="url"
                           name="github"
                           value={formData.github}
                           onChange={handleChange}
-                          className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all"
+                          className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-xl"
                           placeholder="https://github.com/username"
                         />
                       </div>
@@ -1171,7 +1209,7 @@ const StudentRegister = () => {
                           name="password"
                           value={formData.password}
                           onChange={handleChange}
-                          className={`w-full pl-10 pr-10 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all ${
+                          className={`w-full pl-10 pr-10 py-3 bg-gray-50 border rounded-xl ${
                             errors.password ? 'border-red-300' : 'border-gray-300'
                           }`}
                           placeholder="••••••••"
@@ -1190,9 +1228,6 @@ const StudentRegister = () => {
                           {errors.password}
                         </p>
                       )}
-                      <div className="mt-2 text-xs text-gray-500">
-                        • 8+ characters • Uppercase & lowercase • Numbers • Special characters
-                      </div>
                     </div>
 
                     <div>
@@ -1206,7 +1241,7 @@ const StudentRegister = () => {
                           name="confirmPassword"
                           value={formData.confirmPassword}
                           onChange={handleChange}
-                          className={`w-full pl-10 pr-10 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all ${
+                          className={`w-full pl-10 pr-10 py-3 bg-gray-50 border rounded-xl ${
                             errors.confirmPassword ? 'border-red-300' : 'border-gray-300'
                           }`}
                           placeholder="••••••••"
@@ -1240,14 +1275,7 @@ const StudentRegister = () => {
                         className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1"
                       />
                       <label htmlFor="termsAccepted" className="ml-2 text-sm text-gray-700">
-                        I agree to the{' '}
-                        <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
-                          Terms of Service
-                        </a>{' '}
-                        and{' '}
-                        <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
-                          Code of Conduct
-                        </a>
+                        I agree to the Terms of Service and Code of Conduct
                       </label>
                     </div>
                     {errors.termsAccepted && (
@@ -1267,11 +1295,7 @@ const StudentRegister = () => {
                         className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1"
                       />
                       <label htmlFor="privacyAccepted" className="ml-2 text-sm text-gray-700">
-                        I have read and accept the{' '}
-                        <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
-                          Privacy Policy
-                        </a>{' '}
-                        and consent to my data being processed for internship matching
+                        I accept the Privacy Policy and consent to data processing
                       </label>
                     </div>
                     {errors.privacyAccepted && (
@@ -1280,20 +1304,6 @@ const StudentRegister = () => {
                         {errors.privacyAccepted}
                       </p>
                     )}
-
-                    <div className="flex items-start">
-                      <input
-                        type="checkbox"
-                        id="receiveNotifications"
-                        name="receiveNotifications"
-                        checked={formData.receiveNotifications}
-                        onChange={handleChange}
-                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1"
-                      />
-                      <label htmlFor="receiveNotifications" className="ml-2 text-sm text-gray-700">
-                        I want to receive internship opportunities, interview calls, career tips, and platform updates via email and notifications
-                      </label>
-                    </div>
                   </div>
                 </div>
               )}
@@ -1340,25 +1350,12 @@ const StudentRegister = () => {
                       </>
                     ) : (
                       <>
-                        Complete Registration & Go to Dashboard
+                        Complete Registration
                         <CheckCircle className="ml-2" size={20} />
                       </>
                     )}
                   </button>
                 )}
-              </div>
-
-              <div className="mt-6 bg-blue-50 p-4 rounded-xl">
-                <div className="flex items-start">
-                  <Shield className="text-blue-600 mr-2 mt-0.5 flex-shrink-0" size={18} />
-                  <div>
-                    <p className="text-sm text-blue-800 font-medium">Your data is secure</p>
-                    <p className="text-xs text-blue-700 mt-1">
-                      We use enterprise-grade security and never share your personal information with unauthorized third parties. 
-                      Your profile helps us match you with the best internship opportunities.
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
           </form>
@@ -1374,9 +1371,6 @@ const StudentRegister = () => {
             >
               Sign in here
             </Link>
-          </p>
-          <p className="text-xs text-gray-500 mt-2">
-            By registering, you agree to our terms and confirm that the information provided is accurate.
           </p>
         </div>
       </div>

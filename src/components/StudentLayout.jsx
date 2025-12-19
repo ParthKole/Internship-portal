@@ -1,22 +1,24 @@
-// Create this file at: src/components/StudentLayout.jsx
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import Sidebar from './Sidebar';
-import Header from './Header';
+import Sidebar from '../students/components/Sidebar';
+import Header from '../students/components/Header';
 
 const StudentLayout = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      <Sidebar 
-        isCollapsed={sidebarCollapsed} 
-        toggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)} 
+    <div className="flex min-h-screen bg-[#F7F8FA]">
+      <Sidebar
+        isCollapsed={sidebarCollapsed}
+        toggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
-      <div className="flex-1 flex flex-col">
+      
+      <div className={`flex-1 flex flex-col transition-all duration-300 ${sidebarCollapsed ? 'ml-20' : 'ml-64'}`}>
         <Header />
         <main className="flex-1 p-6">
-          <Outlet /> {/* This renders the nested routes */}
+          <div className="max-w-7xl mx-auto">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>

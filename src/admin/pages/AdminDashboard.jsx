@@ -63,7 +63,8 @@ const AdminDashboard = () => {
         toggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
 
-      <div className="flex-1 flex flex-col">
+      {/* FIX: Add margin-left that changes with sidebar state */}
+      <div className={`flex-1 flex flex-col transition-all duration-300 ${sidebarCollapsed ? 'ml-20' : 'ml-64'}`}>
         <Header />
 
         <main className="flex-1 p-6">

@@ -174,8 +174,8 @@ const StudentProfile = () => {
         toggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)} 
       />
       
-      <div className="flex-1 flex flex-col">
-        <Header title = "My Profile" />
+      <div className={`flex-1 flex flex-col transition-all duration-300 ${sidebarCollapsed ? 'ml-20' : 'ml-64'}`}>
+        <Header title="My Profile" />
         
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto">

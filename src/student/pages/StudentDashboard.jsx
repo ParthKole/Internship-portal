@@ -22,7 +22,9 @@ import {
   Cloud,
   Users,
   Zap,
-  MessageSquare
+  MessageSquare,
+  Menu,
+  LogOut
 } from 'lucide-react';
 
 const StudentDashboard = () => {
@@ -196,6 +198,13 @@ const StudentDashboard = () => {
     { company: 'TCS Digital', role: 'Software Developer', deadline: '10 days', match: 87 },
   ];
 
+   const handleLogout = () => {
+    localStorage.removeItem('studentToken');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('userEmail');
+    navigate('/student/login');
+  };
+  
   return (
     <div className="flex min-h-screen bg-[#F7F8FA]">
       <Sidebar 
@@ -203,8 +212,8 @@ const StudentDashboard = () => {
         toggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)} 
       />
       
-      <div className="flex-1 flex flex-col">
-        <Header />
+       <div className={`flex-1 flex flex-col transition-all duration-300 ${sidebarCollapsed ? 'ml-20' : 'ml-64'}`}>
+        <Header title="Dashboard" />
         
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto">
@@ -214,14 +223,14 @@ const StudentDashboard = () => {
                 <div className="flex items-center space-x-4">
                   <div className="relative">
                     <div className="w-20 h-20 bg-gradient-to-br from-[#4F46E5] to-[#7C3AED] rounded-full flex items-center justify-center">
-                      <span className="text-white text-2xl font-bold">MS</span>
+                      <span className="text-white text-2xl font-bold">RS</span>
                     </div>
                     <div className="absolute bottom-0 right-0 w-6 h-6 bg-emerald-500 rounded-full border-4 border-white"></div>
                   </div>
                   
                   <div>
                     <div className="flex items-center space-x-3">
-                      <h1 className="text-2xl font-bold text-gray-900">Madhura Sharma</h1>
+                      <h1 className="text-2xl font-bold text-gray-900">Rahul Sharma</h1>
                       <span className="px-3 py-1 bg-[#4F46E5] text-white text-sm font-medium rounded-full">
                         Open for Internship
                       </span>

@@ -29,21 +29,21 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
-        <Link to="/" className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-8">
+        <Link to="/" className="inline-flex items-center text-gray-600 hover:text-blue-600 mb-8 transition-colors">
           <ArrowLeft size={18} className="mr-2" />
           Back to Home
         </Link>
 
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
           {/* Header */}
-          <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-6 text-center">
+          <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-center">
             <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <Shield size={28} className="text-white" />
             </div>
             <h1 className="text-2xl font-bold text-white">Admin Login</h1>
-            <p className="text-gray-300 mt-2">Administrative portal access</p>
+            <p className="text-blue-100 mt-2">Administrative portal access</p>
           </div>
 
           {/* Form */}
@@ -58,8 +58,8 @@ const AdminLogin = () => {
             )}
 
             {/* Demo Credentials */}
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-              <p className="text-sm text-amber-800">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <p className="text-sm text-blue-800">
                 <strong className="font-semibold">Demo Credentials:</strong><br/>
                 Email: admin@college.edu<br/>
                 Password: admin123
@@ -79,7 +79,7 @@ const AdminLogin = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@college.edu"
-                  className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                   required
                 />
               </div>
@@ -98,7 +98,7 @@ const AdminLogin = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter admin password"
-                  className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                   required
                 />
               </div>
@@ -107,7 +107,7 @@ const AdminLogin = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-gray-800 to-gray-900 text-white py-3 rounded-lg font-medium hover:from-gray-900 hover:to-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-md hover:shadow-lg"
             >
               {loading ? (
                 <>
@@ -120,7 +120,7 @@ const AdminLogin = () => {
             </button>
 
             <div className="text-center text-sm text-gray-600">
-              <Link to="/" className="text-gray-700 hover:text-gray-900">
+              <Link to="/" className="text-blue-600 hover:text-blue-700 font-medium transition-colors">
                 Return to Home Page
               </Link>
             </div>
