@@ -28,8 +28,17 @@ import Announcements from './admin/pages/Announcements';
 import Settings from './admin/pages/Settings';
 
 // Company Pages
-import CompanyLogin from './company/pages/CompanyLogin';
-import CompanyRegister from './company/pages/CompanyRegister';
+import CompanyLayout from './company/components/CompanyLayout';
+import CompanyDashboard from './company/pages/CompanyDashboard';
+import CompanyProfile from './company/pages/CompanyProfile';
+import ApplicationsPage from './company/pages/ApplicationsPage';
+import PostInternship from './company/pages/PostInternship';
+import InternshipsPage from './company/pages/InternshipsPage';
+import CandidatesPage from './company/pages/CandidatesPage';
+import InterviewsPage from './company/pages/InterviewsPage';
+import MessagesPage from './company/pages/MessagesPage';
+import AnalyticsPage from './company/pages/AnalyticsPage';
+import SettingsPage from './company/pages/SettingsPage';
 
 // Protected Route Components
 const StudentProtectedRoute = ({ children }) => {
@@ -173,12 +182,23 @@ function App() {
         <Route path="/company/login" element={<CompanyLogin />} />
         <Route path="/company/register" element={<CompanyRegister />} />
         
-        {/* Protected Company Routes (add when you have company pages) */}
-        {/* <Route path="/company/dashboard" element={
-          <CompanyProtectedRoute>
-            <CompanyDashboard />
-          </CompanyProtectedRoute>
-        } /> */}
+       <Route path="/company" element={
+  <CompanyProtectedRoute>
+    <CompanyLayout />
+  </CompanyProtectedRoute>
+}>
+  <Route index element={<Navigate to="dashboard" />} />
+  <Route path="dashboard" element={<CompanyDashboard />} />
+  <Route path="profile" element={<CompanyProfile />} />
+  <Route path="post-internship" element={<PostInternship />} />
+  <Route path="internships" element={<InternshipsPage />} />
+  <Route path="applications" element={<ApplicationsPage />} />
+  <Route path="candidates" element={<CandidatesPage />} />
+  <Route path="interviews" element={<InterviewsPage />} />
+  <Route path="messages" element={<MessagesPage />} />
+  <Route path="analytics" element={<AnalyticsPage />} />
+  <Route path="settings" element={<SettingsPage />} />
+</Route>
         
         {/* Fallback Route */}
         <Route path="*" element={<Navigate to="/" />} />
