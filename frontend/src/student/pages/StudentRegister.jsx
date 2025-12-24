@@ -9,6 +9,7 @@ import {
   Target, Star, Heart, PenTool, FileCheck, Trophy,
   Linkedin, Github, ExternalLink, Zap
 } from 'lucide-react';
+import api from '../../utils/api';
 
 const StudentRegister = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const StudentRegister = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState({});
+  const [serverError, setServerError] = useState('');
 
   const totalSteps = 8;
 
@@ -220,23 +222,26 @@ const StudentRegister = () => {
     e.preventDefault();
     if (validateStep(step)) {
       setLoading(true);
+      setServerError('');
       
-      setTimeout(() => {
-        const studentProfile = {
-          ...formData,
-          id: Date.now(),
-          registeredAt: new Date().toISOString(),
-          profileComplete: 85,
-          verificationStatus: 'pending'
-        };
+      try {
+        // Send data to backend
+        // Note: For file uploads (profilePhoto/resume), you would typically use FormData
+        // and a different content-type, but for this JSON registration:
+        const response = await api.post('/auth/register', formData);
         
-        localStorage.setItem('studentProfile', JSON.stringify(studentProfile));
-        localStorage.setItem('studentToken', 'student-token-' + Date.now());
-        localStorage.setItem('isLoggedIn', 'true');
-        
+        if (response.status === 201) {
+            // Success
+            navigate('/student/login', { 
+              state: { message: 'Registration successful! Please login.' } 
+            });
+        }
+      } catch (err) {
+        console.error(err);
+        setServerError(err.response?.data?.error || 'Registration failed. Please try again.');
+      } finally {
         setLoading(false);
-        navigate('/student/dashboard');
-      }, 2000);
+      }
     }
   };
 
@@ -377,6 +382,12 @@ const StudentRegister = () => {
             <h2 className="text-xl font-bold text-gray-900 mb-2">{stepTitles[step]}</h2>
             <p className="text-gray-600">{stepDescriptions[step]}</p>
           </div>
+          
+          {serverError && (
+             <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-center">
+                {serverError}
+             </div>
+          )}
         </div>
 
         {/* Form Container */}
