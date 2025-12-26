@@ -31,7 +31,7 @@ const internshipSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ['pending', 'approved'],
-      default: 'pending',
+      default: 'approved',
     },
   },
   { timestamps: true }

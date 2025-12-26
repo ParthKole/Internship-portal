@@ -1,7 +1,8 @@
+// src/student/StudentLogin.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GraduationCap, Mail, Lock, Eye, EyeOff, Loader2, AlertCircle } from 'lucide-react';
-import api from '../../utils/api'; // Import your new API utility
+import api from '../../utils/api';
 
 const StudentLogin = () => {
   const [email, setEmail] = useState('');
@@ -18,9 +19,15 @@ const StudentLogin = () => {
 
     try {
       const response = await api.post('/auth/login', { email, password });
-      
+      console.log("Login Response:", response.data); // Debugging log
+
       const { token, user } = response.data;
       
+      // Safety check to ensure 'user' object exists before accessing 'role'
+      if (!user || !user.role) {
+        throw new Error('Invalid server response. Missing user data.');
+      }
+
       if (user.role !== 'student') {
         throw new Error('Unauthorized access. Student portal only.');
       }
@@ -31,7 +38,8 @@ const StudentLogin = () => {
       
       navigate('/student/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please check credentials.');
+      console.error("Login Error:", err);
+      setError(err.response?.data?.message || err.message || 'Login failed.');
     } finally {
       setLoading(false);
     }

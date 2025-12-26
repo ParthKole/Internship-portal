@@ -19,12 +19,8 @@ const applicationSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['pending', 'accepted', 'rejected'],
+      enum: ['pending', 'accepted', 'rejected', 'shortlisted'],
       default: 'pending',
-    },
-    appliedAt: {
-      type: Date,
-      default: Date.now,
     },
   },
   { timestamps: true }
@@ -32,4 +28,4 @@ const applicationSchema = new mongoose.Schema(
 
 module.exports = mongoose.model('Application', applicationSchema);
 
- 
+
