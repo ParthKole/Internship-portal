@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 // Common Pages
 import HomePage from './common/pages/pages/HomePage';
+import AIChatbotButton from './components/AIChatbotButton';
 
 // ================= STUDENT PAGES =================
 import StudentLogin from './student/pages/StudentLogin';
@@ -70,6 +71,8 @@ const CompanyProtectedRoute = ({ children }) => {
 function App() {
   return (
     <Router>
+      {/* AI Chatbot Button - Visible on all pages */}
+      <AIChatbotButton />
       <Routes>
 
         {/* Common */}
